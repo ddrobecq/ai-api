@@ -4,14 +4,14 @@ const process = require("node:process");
 //import { OpenAI } from "openai";
 //import process from "node:process";
 
-/** function chatGPT **
+/** function generateContent **
  * @purpose : call generative text openAI API
  * @param {string} data : data to generate text from
  * @param {string} model : the model to use (gpt-3.5 | gpt-3.5-turbo | gpt-4o-mini)
  * @returns : promise to result
  * @throws : error
  */
-async function chatGPT (data, model) {
+async function generateContent (data, model) {
     const openai = new OpenAI({
         apiKey: process.env.OPENAI_API_KEY // This is also the default, can be omitted
     });
@@ -44,4 +44,4 @@ async function chatGPT (data, model) {
         throw (error);
     }
 }
-exports.chatGPT = chatGPT;
+exports.generateContent = generateContent;

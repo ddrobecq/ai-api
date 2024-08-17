@@ -13,7 +13,7 @@ function initModel () {
     const GOOGLE_API_CLIENT_ID = process.env.GOOGLE_API_CLIENT_ID;
 
     // TO PUT IN ENVIRONMENT VARIABLES
-    const location = 'europe-west9';
+    const location = process.env.GOOGLE_API_REGION;
     const authOptions = {
         credentials: {
             type: "service_account",

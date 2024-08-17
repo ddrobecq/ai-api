@@ -9,7 +9,7 @@ let generativeModel = null;
  * @param {string} prompt : prompt to generate content from
  * @return {stream} stream : stream of generated content
 */
-async function streamGenerateContent (prompt) {
+async function generateStreamContent (prompt) {
     /** function decodedData 
      * @purpose : transform the response stream to a json object
      * @param {object} body : response body
@@ -57,7 +57,7 @@ async function streamGenerateContent (prompt) {
         throw (error);
     }
 };
-exports.streamGenerateContent = streamGenerateContent;
+exports.generateStreamContent = generateStreamContent;
 
 async function generateContent (prompt) {
     const request = {
