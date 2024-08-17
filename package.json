@@ -25,7 +25,7 @@
   "peerDependencies": {
     "@google-cloud/vertexai": "1.2.0",
     "dotenv": "^16.4.5",
-    "openai": "4.55.9"
+    "openai": "4.56.0"
   },
   "devDependencies": {
     "@eslint/js": "9.9.0",
