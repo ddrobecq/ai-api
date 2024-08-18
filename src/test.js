@@ -1,17 +1,17 @@
 
-//import callTextGeneratorAPI from './index.js';
-const aiAPI = require('./index.js');
+import generateText from  './index.js';
+//const aiAPI = require('./index.ts');
 
-const prompt = "This is a test";
+const myPrompt = "This is a test";
 const model = 'gemini-1.5-flash-001';
 const stream = false;
 
 function main () {
-    aiAPI.generateText (prompt, model, stream)
-    .then (result => {
+    generateText (myPrompt, model, stream)
+    .then ((result) => {
         console.log(result);
     })
-    .catch (error => {
+    .catch ((error) => {
         console.error(error);
     }); 
 }

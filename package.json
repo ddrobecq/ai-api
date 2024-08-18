@@ -1,11 +1,12 @@
 {
   "name": "@drobs/ai-api",
-  "version": "1.0.3",
+  "type": "module",
+  "version": "1.1.0",
   "private": false,
   "description": "Generic API to multiple Generative AI models",
   "main": "./dist/src/index.js",
   "scripts": {
-    "test": "node ./src/test.js"
+    "test": "node ./dist/src/test.js"
   },
   "keywords": [
     "ai",
@@ -13,18 +14,21 @@
     "openai",
     "gpt",
     "gemini",
-    "vertexai",
+    "vertex ai",
     "google ai",
     "generative ai",
     "models",
-    "text",
+    "model",
+    "llm",
+    "large language model",
+    "text generation",
     "image"
   ],
   "author": "drobs",
   "license": "ISC",
   "peerDependencies": {
     "@google-cloud/vertexai": "1.2.0",
-    "dotenv": "^16.4.5",
+    "dotenv": "16.4.5",
     "openai": "4.56.0"
   },
   "devDependencies": {

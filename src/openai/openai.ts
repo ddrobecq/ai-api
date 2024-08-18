@@ -1,8 +1,5 @@
-const { OpenAI } = require("openai");   
-const process = require("node:process");
-
-//import { OpenAI } from "openai";
-//import process from "node:process";
+import { OpenAI } from "openai";
+import process from "node:process";
 
 /** function generateContent **
  * @purpose : call generative text openAI API
@@ -11,7 +8,7 @@ const process = require("node:process");
  * @returns : promise to result
  * @throws : error
  */
-async function generateContent (data, model) {
+export async function generateContent (data: string, model: string) {
     const openai = new OpenAI({
         apiKey: process.env.OPENAI_API_KEY // This is also the default, can be omitted
     });
@@ -44,4 +41,3 @@ async function generateContent (data, model) {
         throw (error);
     }
 }
-exports.generateContent = generateContent;

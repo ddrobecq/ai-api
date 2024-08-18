@@ -1,15 +1,14 @@
-//import vertexAI from "./init.js";
-const vertexAI = require("./init.js");
-const { Transform } = require("stream");    
-//import { Transform } from  "stream";
+import { GenerativeModel, StreamGenerateContentResult } from "@google-cloud/vertexai";
+import initModel from "./init.js";
+import { Transform } from  "stream";
 
-let generativeModel = null;
+let generativeModel:GenerativeModel = null;
 
 /** function streamGenerateContent **
  * @param {string} prompt : prompt to generate content from
  * @return {stream} stream : stream of generated content
 */
-async function generateStreamContent (prompt) {
+export async function generateStreamContent (prompt:string) {
     /** function decodedData 
      * @purpose : transform the response stream to a json object
      * @param {object} body : response body
@@ -37,13 +36,13 @@ async function generateStreamContent (prompt) {
     };
     try {
         if (!generativeModel) {
-            generativeModel = vertexAI.initModel();
+            generativeModel = initModel();
         }
         return generativeModel.generateContentStream(request)
-        .then (result => {
+        .then ((result: StreamGenerateContentResult) => {
             return ([result.stream, decodedData]);
         })
-        .catch (error => {
+        .catch ((error: string) => {
             throw (error);
         });
         } 
@@ -57,16 +56,15 @@ async function generateStreamContent (prompt) {
         throw (error);
     }
 };
-exports.generateStreamContent = generateStreamContent;
 
-async function generateContent (prompt) {
+export async function generateContent (prompt: string) {
     const request = {
         contents: [{role: 'user', parts: [{text: prompt}]}],
     };
 
     try {
         if (!generativeModel) {
-            generativeModel = vertexAI.initModel();
+            generativeModel = initModel();
         }
         const result = await generativeModel.generateContent(request);
         return (result.response.candidates[0].content.parts[0].text);
@@ -81,4 +79,3 @@ async function generateContent (prompt) {
         throw (error);
     }
 };
-exports.generateContent = generateContent;

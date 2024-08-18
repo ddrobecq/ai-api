@@ -1,11 +1,11 @@
-const {
+import {
     HarmBlockThreshold,
     HarmCategory,
     VertexAI
-} = require('@google-cloud/vertexai');
-const process = require('process');
+} from '@google-cloud/vertexai';
+import process from 'process';
 
-function initModel () {
+export default function initModel () {
     const GOOGLE_API_PRIVATE_KEY_ID = process.env.GOOGLE_API_PRIVATE_KEY_ID;
     const GOOGLE_API_PRIVATE_KEY = process.env.GOOGLE_API_PRIVATE_KEY;
     const GOOGLE_API_PROJECT_ID = process.env.GOOGLE_API_PROJECT_ID;
@@ -50,4 +50,3 @@ function initModel () {
     });
     return generativeModel;
 }
-exports.initModel = initModel;
