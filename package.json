@@ -1,6 +1,6 @@
 {
   "name": "@drobs/ai-api",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "type": "module",
   "private": false,
   "description": "Generic API to multiple Generative AI models",

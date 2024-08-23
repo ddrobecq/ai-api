@@ -75,5 +75,8 @@ export function getModelsList():Models {
  */
 export function getModel(id:number):Model {
     const modelsList = getModelsList();
+    if (id < 0 || id > modelsList.length || isNaN(id)) {
+        throw new Error('Model not found');
+    }
     return modelsList.filter(model => model.id === id)[0];
 }
