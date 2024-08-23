@@ -1,5 +1,7 @@
+import { GenereicModerationModel } from "./moderation";
+
 type ModelAPI = 'OpenAI' | 'Vertex AI' | 'Google';
-type ModelName = 'gpt-3.5' | 'gpt-3.5-turbo' | 'gpt-4o-mini' | 'gpt-4' | 'gpt-4-turbo' | 'gemini-1.5-flash-001' | 'gemini-1.5-flash';
+type ModelName = 'gpt-3.5' | 'gpt-3.5-turbo' | 'gpt-4o-mini' | 'gpt-4' | 'gpt-4-turbo' | 'gemini-1.5-flash' | 'gemini-1.5-pro';
 
 export type Model = {
     id: number,
@@ -13,7 +15,8 @@ export type Models = Array<Model>;
 
 export type GenericContentRequestOptions = {
     temperature?: number,
-    max_tokens?: number
+    max_tokens?: number,
+    moderationModel?:GenereicModerationModel
 }
 
 /**
@@ -42,7 +45,7 @@ export function getModelsList():Models {
         },
         {
             id: 4,
-            name: 'gemini-1.5-flash-001',
+            name: 'gemini-1.5-flash',
             provider: 'Vertex AI',
             isStreamingCompatible: true
         },
@@ -50,7 +53,7 @@ export function getModelsList():Models {
             id: 5,
             name: 'gemini-1.5-flash',
             provider: 'Google',
-            isStreamingCompatible: false
+            isStreamingCompatible: true
         },
         {
             id: 6,
@@ -63,6 +66,18 @@ export function getModelsList():Models {
             name: 'gpt-4',
             provider: 'OpenAI',
             isStreamingCompatible: false
+        },
+        {
+            id: 7,
+            name: 'gemini-1.5-pro',
+            provider: 'Google',
+            isStreamingCompatible: true
+        },
+        {
+            id: 8,
+            name: 'gemini-1.5-pro',
+            provider: 'Vertex AI',
+            isStreamingCompatible: true
         },
     ];
     return modelsList;

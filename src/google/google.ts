@@ -1,4 +1,4 @@
-import { GenerateContentRequest, GenerateContentStreamResult, GenerativeModel, GoogleGenerativeAI } from "@google/generative-ai";
+import { GenerateContentRequest, GenerateContentStreamResult, GenerativeModel, GoogleGenerativeAI, HarmBlockThreshold, HarmCategory } from "@google/generative-ai";
 import process from 'process';
 import { Transform } from  "stream";
 import { GenericContentRequestOptions } from "../models";
@@ -9,8 +9,29 @@ import { GenericContentRequestOptions } from "../models";
  * @returns {GenerativeModel} : initialized model
  */
 function initModel (modelName: string): GenerativeModel {
+    const safetySettings = [
+        {
+            category: HarmCategory.HARM_CATEGORY_HARASSMENT,
+            threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+        },
+        {
+            category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+            threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+        },
+        {
+            category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
+            threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+        },
+        {
+            category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+            threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+        }
+    ];
     const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
-    const model = genAI.getGenerativeModel({ model: modelName });
+    const model = genAI.getGenerativeModel({ 
+        model: modelName,
+        safetySettings: safetySettings
+    });
     return model;
 }
 
@@ -22,6 +43,7 @@ function initModel (modelName: string): GenerativeModel {
  * @returns {GenerateContentRequest} : request formatted for Google AI
  */
 function createRequest (prompt: string, modelName: string, options?: GenericContentRequestOptions):GenerateContentRequest {
+
     return {
         contents: [
           {
@@ -36,7 +58,7 @@ function createRequest (prompt: string, modelName: string, options?: GenericCont
         generationConfig: {
           maxOutputTokens: options?.max_tokens || 256,
           temperature: options?.temperature || 0.5,
-        }
+        },
     };
 }
 

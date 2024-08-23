@@ -43,7 +43,7 @@ for await (const chunk of response) {
     console.log(chunkText);
 }
 */
- const response = await generateContent(myPrompt, 3, stream);
+ const response = await generateContent(myPrompt, 5, false);
  console.log(response);
 }
 
