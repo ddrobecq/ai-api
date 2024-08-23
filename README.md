@@ -30,6 +30,7 @@ GOOGLE_API_PRIVATE_KEY=Your Privete Key (ex : -----BEGIN PRIVATE KEY-----\nMIIEv
 GOOGLE_API_CLIENT_EMAIL=Your Google Account allowed to use VertexAI API (ex : user@project-projectid.iam.gserviceaccount.com)
 GOOGLE_API_CLIENT_ID=Your Google Client ID (ex : 107696212857897829246)
 GOOGLE_API_REGION=Your Google Region (ex : europe-west9)
+GOOGLE_API_CLIENT_CERT_URL=https://www.googleapis.com/...
 ### Google API (Generative API)
 GOOGLE_API_PRIVATE_KEY=Your Privete Key
 ### Open API
@@ -37,14 +38,14 @@ OPENAI_API_KEY=Your Open API Key (ex : sk-tfB0mBpLPyQFeUzR7R48issEmHrjNbzCYsT3Bl
 
 # Usage
 ```js
-const aiAPI = require('./index.js');
+import { generateContent } from './index.js';
 
 const prompt = "This is a test";
-const model = 'gemini-1.5-flash-001';
+const model = 4;  //Gemini 1.5 Flash via Vertex AI
 const stream = false;
 
 function main () {
-    aiAPI.generateContent (prompt, model, stream)
+    generateContent (prompt, model, stream)
     .then (result => {
         console.log(result);
     })
