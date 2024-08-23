@@ -36,30 +36,3 @@ export async function generateContent  (prompt: string, modelId: number, stream:
         }
     }
 }
-
-/** function generateText **
- * DEPRECATED => use generateContent instead
- * TODO: remove this function
- * @purpose : call generative text API 
- * @param {*} prompt : data to generate text from
- * @param {string} model : the engine to use
- * @param {boolean} stream : stremaing response if true
- * @returns : promise to result
-*/
-export default async function generateText  (prompt: string, model: string, stream: boolean, options?: GenericContentRequestOptions) {
-    const request = prompt;
-
-    switch (model) {
-        case 'gpt-3.5':
-        case 'gpt-3.5-turbo':
-        case 'gpt-4o-mini':
-            return (openAI.generateContent (request, model, options));
-        case 'gemini-1.5-flash-001':
-            if (stream) return (vertexAI.generateContentStream (request, model, options));
-            else return (vertexAI.generateContent (request, model, options));
-        default: {
-            console.error('Model not found');
-            throw new Error('Model not found');
-        }
-    }
-}
