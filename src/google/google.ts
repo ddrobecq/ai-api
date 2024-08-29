@@ -1,7 +1,10 @@
-import { GenerateContentRequest, GenerateContentStreamResult, GenerativeModel, GoogleGenerativeAI, HarmBlockThreshold, HarmCategory } from "@google/generative-ai";
+import { GenerateContentRequest, GenerateContentStreamResult, GenerativeModel, GoogleGenerativeAI, HarmBlockThreshold, HarmCategory, Part } from "@google/generative-ai";
 import process from 'process';
 import { Transform } from  "stream";
 import { GenericContentRequestOptions } from "../models";
+import { GenericPrompt } from "..";
+
+type Prompt = string | Part[];
 
 /**
  * function initModel
@@ -36,56 +39,82 @@ function initModel (modelName: string): GenerativeModel {
 }
 
 /**
+ * function createPrompt : create a prompt from a generic or a list of parts compatible with Google AI
+ * @param {GenericPrompt} prompt : prompt to generate convert into Google prompt 
+ * @returns {Prompt} : Google prompt
+ */
+function createPrompt (prompt: GenericPrompt): Prompt {
+    let promptRequest: Part[] = [];
+    if (typeof prompt === 'string') {
+        promptRequest = [{ text: prompt }];
+    } else {
+        prompt.map((part) => {
+            let newPart: Part;
+            if (part.type === 'text') {
+                newPart = {text: part.text};
+            } else {
+                newPart = {
+                    inlineData: {
+                        data: part.url,
+                        mimeType: part.mimeType
+                    }
+                };
+            }
+            promptRequest.push(newPart);
+        });
+    }
+    return promptRequest;
+}
+
+/**
  * function createRequest
- * @param prompt {string} : prompt to generate content from
+ * @param prompt {Prompt} : prompt to generate content from
  * @param modelName {string} : model to use
  * @param options {GenericContentRequestOptions} : request options (temperature, max_tokens)
  * @returns {GenerateContentRequest} : request formatted for Google AI
  */
-function createRequest (prompt: string, modelName: string, options?: GenericContentRequestOptions):GenerateContentRequest {
-
+function createRequest (prompt: GenericPrompt, options?: GenericContentRequestOptions):GenerateContentRequest {
+    const promptRequest = createPrompt(prompt);
     return {
         contents: [
           {
             role: 'user',
-            parts: [
-              {
-                text: prompt,
-              }
-            ],
+            parts: promptRequest as Part[],
           }
         ],
         generationConfig: {
           maxOutputTokens: options?.max_tokens || 256,
           temperature: options?.temperature || 0.5,
+          candidateCount: options?.candidateCount || 1,
+          topK: options?.topK || 64,
+          topP: options?.topP || 0.95,
         },
     };
 }
 
 /**
  * function generateContent
- * @param prompt {string} : prompt to generate content from
+ * @param prompt {Prompt} : prompt to generate content from
  * @param modelName {string} : model to use
  * @param options {GenericContentRequestOptions} : request options (temperature, max_tokens)
  * @returns {string} : generated content
  */
-export async function generateContent (prompt: string, modelName: string, options?: GenericContentRequestOptions) {
+export async function generateContent (prompt: GenericPrompt, modelName: string, options?: GenericContentRequestOptions) {
     const model = initModel(modelName);
-    const request = createRequest (prompt, modelName, options);
+    const request = createRequest (prompt, options);
     const result = await model.generateContent (request);
     const response = result.response.text();
-    console.log(response);
     return response;
 }
 
 /**
  * function generateContentStream
- * @param prompt {string} : prompt to generate content from
+ * @param prompt {Prompt} : prompt to generate content from
  * @param modelName {string} : model to use
  * @param options {GenericContentRequestOptions} : request options (temperature, max_tokens)
  * @returns {[Stream, Transform]} : stream of generated content and decoder to get the content
  */
-export async function generateContentStream (prompt: string, modelName: string, options?: GenericContentRequestOptions) {
+export async function generateContentStream (prompt: GenericPrompt, modelName: string, options?: GenericContentRequestOptions) {
      /** function decodedData 
      * @purpose : transform the response stream to a json object
      * @param {object} body : response body
@@ -111,7 +140,7 @@ export async function generateContentStream (prompt: string, modelName: string, 
     );
     try {
         const model = initModel(modelName);
-        const request = createRequest (prompt, modelName, options);
+        const request = createRequest (prompt, options);
         return model.generateContentStream(request)
             .then ((result: GenerateContentStreamResult) => {
             return ([result.stream, decodedData]);

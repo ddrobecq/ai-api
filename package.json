@@ -1,13 +1,14 @@
 {
   "name": "@drobs/ai-api",
-  "version": "1.3.0",
+  "version": "1.6.1",
   "type": "module",
   "private": false,
   "description": "Generic API to multiple Generative AI models",
   "main": "./dist/src/index.js",
   "scripts": {
-    "test": "tsc && node ./dist/src/test.js",
-    "build": "tsc"
+    "test": "npx tsc && node ./dist/src/test.js",
+    "build": "npx tsc",
+    "publish": "npm publish"
   },
   "keywords": [
     "ai",

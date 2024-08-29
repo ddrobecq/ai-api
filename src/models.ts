@@ -8,6 +8,7 @@ export type Model = {
     name: ModelName,
     provider: ModelAPI
     isStreamingCompatible: boolean
+    isImageSupported: boolean
     logo?: string
 };
 
@@ -16,6 +17,9 @@ export type Models = Array<Model>;
 export type GenericContentRequestOptions = {
     temperature?: number,
     max_tokens?: number,
+    candidateCount?: number, //number of candidates to generate
+    topK?: number, //probability of tokens to consider for each candidate (1=most probable token)
+    topP?: number, //cumulative probability of tokens to consider for each candidate
     moderationModel?:GenereicModerationModel
 }
 
@@ -25,59 +29,67 @@ export type GenericContentRequestOptions = {
  */
 export function getModelsList():Models {
     const modelsList:Models = [
-        {
+        /*{
             id: 1,
             name: 'gpt-3.5',
             provider: 'OpenAI',
             isStreamingCompatible: false
-        },
+        },*/
         {
             id: 2,
             name: 'gpt-3.5-turbo',
             provider: 'OpenAI',
-            isStreamingCompatible: false
+            isStreamingCompatible: false,
+            isImageSupported: false
         },
         {
             id: 3,
             name: 'gpt-4o-mini',
             provider: 'OpenAI',
-            isStreamingCompatible: false
+            isStreamingCompatible: false,
+            isImageSupported : true
         },
         {
             id: 4,
             name: 'gemini-1.5-flash',
             provider: 'Vertex AI',
-            isStreamingCompatible: true
+            isStreamingCompatible: true,
+            isImageSupported : true
         },
         {
             id: 5,
             name: 'gemini-1.5-flash',
             provider: 'Google',
-            isStreamingCompatible: true
+            isStreamingCompatible: true,
+            isImageSupported : true
         },
         {
             id: 6,
             name: 'gpt-4-turbo',
             provider: 'OpenAI',
-            isStreamingCompatible: false
+            isStreamingCompatible: false,
+            isImageSupported : false
         },
         {
             id: 6,
             name: 'gpt-4',
             provider: 'OpenAI',
-            isStreamingCompatible: false
+            isStreamingCompatible: false,
+            isImageSupported : false
         },
         {
             id: 7,
             name: 'gemini-1.5-pro',
             provider: 'Google',
-            isStreamingCompatible: true
+            isStreamingCompatible: true,
+            isImageSupported : true
         },
         {
             id: 8,
             name: 'gemini-1.5-pro',
             provider: 'Vertex AI',
-            isStreamingCompatible: true
+            isStreamingCompatible: true,
+            isImageSupported : true
         },
     ];
     return modelsList;
