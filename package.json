@@ -29,7 +29,7 @@
   "license": "ISC",
   "peerDependencies": {
     "@google-cloud/vertexai": "1.2.0",
-    "@google/generative-ai": "0.17.0",
+    "@google/generative-ai": "0.23.0",
     "dotenv": "16.4.5",
     "openai": "4.56.0"
   },
