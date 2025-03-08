@@ -1,7 +1,7 @@
 import { GenereicModerationModel } from "./moderation";
 
 type ModelAPI = 'OpenAI' | 'Vertex AI' | 'Google';
-type ModelName = 'gpt-3.5' | 'gpt-3.5-turbo' | 'gpt-4o-mini' | 'gpt-4' | 'gpt-4-turbo' | 'gemini-1.5-flash' | 'gemini-1.5-pro';
+type ModelName = 'gpt-3.5' | 'gpt-3.5-turbo' | 'gpt-4o-mini' | 'gpt-4' | 'gpt-4-turbo' | 'gemini-1.5-flash' | 'gemini-1.5-pro' | 'gemini-2.0-flash';
 
 export type Model = {
     id: number,
@@ -87,6 +87,13 @@ export function getModelsList():Models {
         {
             id: 8,
             name: 'gemini-1.5-pro',
+            provider: 'Vertex AI',
+            isStreamingCompatible: true,
+            isImageSupported : true
+        },
+        {
+            id: 9,
+            name: 'gemini-2.0-flash',
             provider: 'Vertex AI',
             isStreamingCompatible: true,
             isImageSupported : true
