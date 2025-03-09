@@ -29,38 +29,11 @@ export type GenericContentRequestOptions = {
  */
 export function getModelsList():Models {
     const modelsList:Models = [
-        /*{
-            id: 1,
-            name: 'gpt-3.5',
-            provider: 'OpenAI',
-            isStreamingCompatible: false
-        },*/
-        {
-            id: 2,
-            name: 'gpt-3.5-turbo',
-            provider: 'OpenAI',
-            isStreamingCompatible: false,
-            isImageSupported: false
-        },
         {
             id: 3,
             name: 'gpt-4o-mini',
             provider: 'OpenAI',
             isStreamingCompatible: false,
-            isImageSupported : true
-        },
-        {
-            id: 4,
-            name: 'gemini-1.5-flash',
-            provider: 'Vertex AI',
-            isStreamingCompatible: true,
-            isImageSupported : true
-        },
-        {
-            id: 5,
-            name: 'gemini-1.5-flash',
-            provider: 'Google',
-            isStreamingCompatible: true,
             isImageSupported : true
         },
         {
@@ -76,20 +49,6 @@ export function getModelsList():Models {
             provider: 'OpenAI',
             isStreamingCompatible: false,
             isImageSupported : false
-        },
-        {
-            id: 7,
-            name: 'gemini-1.5-pro',
-            provider: 'Google',
-            isStreamingCompatible: true,
-            isImageSupported : true
-        },
-        {
-            id: 8,
-            name: 'gemini-1.5-pro',
-            provider: 'Vertex AI',
-            isStreamingCompatible: true,
-            isImageSupported : true
         },
         {
             id: 9,
