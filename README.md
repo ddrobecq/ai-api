@@ -5,7 +5,7 @@ This is a generic API for calling different Generative AI models (OpenAI, Vertex
 # Available models
 ## Google 
 ### Vertex AI - Recommended
- - gemini-1.5-flash
+ - gemini-2.0-flash
  #### Procédure
  Get the following values from the Google credential JSON file by the <a href="https://stackoverflow.com/questions/58460476/where-to-find-credentials-json-for-google-api-client" target=" blank">procedure</a>
  Get the complete procedure from <a href="https://developers.google.com/workspace/guides/create-credentials?hl=fr#service-account" target=" blank">here</a>

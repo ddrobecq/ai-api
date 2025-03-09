@@ -71,7 +71,7 @@ export function getModelsList():Models {
             isImageSupported : false
         },
         {
-            id: 6,
+            id: 10,
             name: 'gpt-4',
             provider: 'OpenAI',
             isStreamingCompatible: false,
