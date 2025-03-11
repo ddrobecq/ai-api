@@ -44,18 +44,18 @@ export function getModelsList():Models {
             isImageSupported : false
         },
         {
-            id: 10,
-            name: 'gpt-4',
-            provider: 'OpenAI',
-            isStreamingCompatible: false,
-            isImageSupported : false
-        },
-        {
             id: 9,
             name: 'gemini-2.0-flash',
             provider: 'Vertex AI',
             isStreamingCompatible: true,
             isImageSupported : true
+        },
+        {
+            id: 10,
+            name: 'gpt-4',
+            provider: 'OpenAI',
+            isStreamingCompatible: false,
+            isImageSupported : false
         },
     ];
     return modelsList;
@@ -67,9 +67,9 @@ export function getModelsList():Models {
  * @returns {Model} : model with the given id
  */
 export function getModel(id:number):Model {
-    const modelsList = getModelsList();
-    if (id < 0 || id > modelsList.length || isNaN(id)) {
-        throw new Error('Model not found');
-    }
-    return modelsList.filter(model => model.id === id)[0];
+    //searh for the model with the given id
+    //if not found throw an error
+    const model = getModelsList().find(model => model.id === id);   
+    if (model) return model;
+    else throw new Error('Model not found');
 }

@@ -1,4 +1,4 @@
-import { generateContent, getModels } from './index.js';
+import { generateContent, getModelInfo, getModels } from './index.js';
 import fs from 'fs';
 import { Buffer } from 'buffer';
 
@@ -69,12 +69,15 @@ async function main () {
 //  const myPrompt = [ imagePart, textPart ];
 
   const models = getModels();
+  const model = getModelInfo (9);
+  console.log (model);
+  /*
   models.forEach(async function(model) {
     if (model.isImageSupported) {
       const response = await generateContent(genericPrompt, 4, false, options);
       console.log(`${model.provider}/${model.name}`, response);
     }
-  });
+  });*/
 }
 
 main();
